@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <button id = 'rock'>Rock</button>
+        <button id = 'paper'>Paper</button>
+        <button id = 'scissors'>Scissors</button>
+        <div id="results">
+
+        </div>
+</body>
+</html>
+<script>
+var pScore = 0;
+var cScore = 0; 
+function computerPlay(){
+    //uses math.random to determine what choice
+    // the computer will make.
+    console.log("Entered Computer Play");
+    var choice = Math.random(3) * 3;
+    console.log(choice);
+    if(choice <=1){
+        return "Rock"
+    }
+    if(choice > 1 && choice <= 2){
+        return "Paper"
+    }
+    if(choice > 2){
+        return "Scissors"
+    }
+}
+
+function userPlay(){
+    //based on text entry to console 
+    let pick = prompt("Rock, Paper, or Scissors");
+
+    pick = pick.toLowerCase();
+    console.log("after lower pick");
+    console.log(pick)
+    if(pick == "rock"){
+        return "Rock";
+    }
+    if(pick == "paper"){
+        return "Paper";
+    }
+    if(pick == "scissors"){
+        return "Scissors";
+    }
+    else{
+        console.log(pick)
+        console.log("Those are not proper choices.");
+        userPlay()
+    }
+}
+function playRound(playerSelection, computerSelection){
+    console.log("Entered Play Round")
+    if(playerSelection == computerSelection ){
+        alert( "Round Tied" );
+    }
+    if(playerSelection == "Rock" && computerSelection == "Paper"){
+        alert( "Computer wins!" );
+        cScore+=1;
+
+    }
+    if(playerSelection == "Rock" && computerSelection == "Scissors"){
+        alert ( "Player wins!" );
+        pScore+=1;
+    }
+    if(playerSelection == "Paper" && computerSelection == "Rock"){
+        alert ( "Player wins!" );
+        pScore+=1;
+    }
+    if(playerSelection == "Paper" && computerSelection == "Scissors"){
+        alert ( "Computer wins!" );
+        cScore+=1;
+    }
+    if(playerSelection == "Scissors" && computerSelection == "Rock"){
+        alert ( "Computer wins!" );
+        cScore+=1;
+    }
+    if(playerSelection == "Scissors" && computerSelection == "Paper"){
+        alert ( "Player wins!" );
+        pScore+=1;
+    }
+    score.textContent = ('player: '+ pScore + ' computer: ' +cScore);
+    results.appendChild(score);
+
+    if (pScore == 5){
+        win.textContent = 'PLAYER TAKES THE WIN';
+        results.appendChild(win);
+    }   
+    else if(cScore == 5){
+        win.textContent = 'COMPUTER TAKES THE WIN';
+        results.appendChild(win);
+    }
+    
+}
+function game(){
+    var count = 0;
+    var cWins = 0;
+    var pWins = 0;
+    while(count <= 4){
+        var pSelect = userPlay();
+        var cSelect = computerPlay();
+        console.log(pSelect);
+        console.log(cSelect);
+        var win = playRound(pSelect,cSelect);
+        console.log(win);
+        if(win == 'Computer wins!'){
+            cWins+=1;
+        }
+        else{
+            pWins+=1;
+        }
+        count = count+1;
+    }
+    if(cwins > pWins){
+        console.log("Computer wins!");
+    }
+    else{
+        console.log("Player wins!");
+    }
+}
+function playRoundR(){
+    playRound('Rock', computerPlay());
+}
+function playRoundP(){
+    playRound('Paper', computerPlay());
+}
+function playRoundS(){
+    playRound('Scissors', computerPlay());
+}
+
+document.getElementById('rock').addEventListener('click', playRoundR);
+document.getElementById('paper').addEventListener('click', playRoundP);
+document.getElementById('scissors').addEventListener('click', playRoundS);
+const results = document.querySelector('#results');
+const score = document.createElement('h2');
+score.textContent = ('player: '+ pScore + ' computer: ' +cScore);
+results.appendChild(score);
+const win = document.createElement('h1');
+
+if (pScore == 5){
+    win.textContent = 'PLAYER TAKES THE WIN';
+    results.appendChild(win);
+}
+else if(cScore == 5){
+    win.textContent = 'COMPUTER TAKES THE WIN';
+    results.appendChild(win);
+}
+</script>
